@@ -28,18 +28,8 @@
 
             <br>
 
-            <div class="card">
-                <div class="card-header">Publicado en: </div>
+            <note-component> </note-component>
 
-                <div class="card-body">
-                    <p>asphjeptjhqpe</p>
-                </div>
-
-                <div class="card-footer">
-                    <button class="btn btn-default">Edit</button>
-                    <button class="btn btn-danger">Remove</button>
-                </div>
-            </div>
         </div>
     </div>
 </div>
