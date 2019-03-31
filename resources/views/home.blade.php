@@ -2,12 +2,6 @@
 
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <form-component> </form-component>
-            <br>
-            <note-component> </note-component>
-        </div>
-    </div>
+    <my-notes-component> </my-notes-component>
 </div>
 @endsection
