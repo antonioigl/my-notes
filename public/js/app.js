@@ -1829,6 +1829,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1845,6 +1846,9 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     addNote: function addNote(note) {
       this.notes.push(note);
+    },
+    deleteNote: function deleteNote(index) {
+      this.notes.splice(index, 1);
     }
   }
 });
@@ -1882,6 +1886,11 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     console.log('Component mounted.');
+  },
+  methods: {
+    onClickDelete: function onClickDelete() {
+      this.$emit('delete');
+    }
   }
 });
 
@@ -37014,8 +37023,16 @@ var render = function() {
         _vm._v(" "),
         _c("br"),
         _vm._v(" "),
-        _vm._l(_vm.notes, function(note) {
-          return _c("note-component", { key: note.id, attrs: { note: note } })
+        _vm._l(_vm.notes, function(note, index) {
+          return _c("note-component", {
+            key: note.id,
+            attrs: { note: note },
+            on: {
+              delete: function($event) {
+                return _vm.deleteNote(index)
+              }
+            }
+          })
         })
       ],
       2
@@ -37056,22 +37073,26 @@ var render = function() {
         _c("p", [_vm._v(_vm._s(_vm.note.description))])
       ]),
       _vm._v(" "),
-      _vm._m(0)
+      _c("div", { staticClass: "card-footer" }, [
+        _c("button", { staticClass: "btn btn-secondary" }, [_vm._v("Edit")]),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-danger",
+            on: {
+              click: function($event) {
+                return _vm.onClickDelete()
+              }
+            }
+          },
+          [_vm._v("Delete")]
+        )
+      ])
     ]
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-footer" }, [
-      _c("button", { staticClass: "btn btn-secondary" }, [_vm._v("Edit")]),
-      _vm._v(" "),
-      _c("button", { staticClass: "btn btn-danger" }, [_vm._v("Remove")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

@@ -4,9 +4,10 @@
             <form-component @new="addNote"> </form-component>
             <br>
             <note-component
-                v-for="note in notes"
+                v-for="(note, index) in notes"
                 :key="note.id"
-                :note="note">
+                :note="note"
+                @delete="deleteNote(index)">
             </note-component>
         </div>
     </div>
@@ -30,6 +31,9 @@
         methods: {
             addNote(note){
                 this.notes.push(note);
+            },
+            deleteNote(index){
+                this.notes.splice(index, 1);
             }
         }
     }
