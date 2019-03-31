@@ -7,7 +7,8 @@
                 v-for="(note, index) in notes"
                 :key="note.id"
                 :note="note"
-                @delete="deleteNote(index)">
+                @delete="deleteNote(index)"
+                @update="updateNote(index, ...arguments)">
             </note-component>
         </div>
     </div>
@@ -34,7 +35,10 @@
             },
             deleteNote(index){
                 this.notes.splice(index, 1);
-            }
+            },
+            updateNote(index, note){
+                this.notes[index] = note;
+            },
         }
     }
 </script>

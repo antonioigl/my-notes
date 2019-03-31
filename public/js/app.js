@@ -1830,6 +1830,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1849,6 +1850,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     deleteNote: function deleteNote(index) {
       this.notes.splice(index, 1);
+    },
+    updateNote: function updateNote(index, note) {
+      this.notes[index] = note;
     }
   }
 });
@@ -1879,10 +1883,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['note'],
   data: function data() {
-    return {};
+    return {
+      editMode: false
+    };
   },
   mounted: function mounted() {
     console.log('Component mounted.');
@@ -1890,6 +1898,13 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     onClickDelete: function onClickDelete() {
       this.$emit('delete');
+    },
+    onClickEdit: function onClickEdit() {
+      this.editMode = true;
+    },
+    onClickUpdate: function onClickUpdate() {
+      this.editMode = false;
+      this.$emit('update', note);
     }
   }
 });
@@ -36939,7 +36954,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "card" }, [
-    _c("div", { staticClass: "card-header" }, [_vm._v("Notes: ")]),
+    _c("div", { staticClass: "card-header" }, [_vm._v("Note: ")]),
     _vm._v(" "),
     _c("div", { staticClass: "card-body" }, [
       _c(
@@ -37030,6 +37045,12 @@ var render = function() {
             on: {
               delete: function($event) {
                 return _vm.deleteNote(index)
+              },
+              update: function($event) {
+                var i = arguments.length,
+                  argsArray = Array(i)
+                while (i--) argsArray[i] = arguments[i]
+                return _vm.updateNote.apply(void 0, [index].concat(argsArray))
               }
             }
           })
@@ -37070,11 +37091,57 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "card-body" }, [
-        _c("p", [_vm._v(_vm._s(_vm.note.description))])
+        _vm.editMode
+          ? _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.note.description,
+                  expression: "note.description"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { type: "text" },
+              domProps: { value: _vm.note.description },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.note, "description", $event.target.value)
+                }
+              }
+            })
+          : _c("p", [_vm._v(_vm._s(_vm.note.description))])
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "card-footer" }, [
-        _c("button", { staticClass: "btn btn-secondary" }, [_vm._v("Edit")]),
+        _vm.editMode
+          ? _c(
+              "button",
+              {
+                staticClass: "btn btn-success",
+                on: {
+                  click: function($event) {
+                    return _vm.onClickUpdate()
+                  }
+                }
+              },
+              [_vm._v("Save")]
+            )
+          : _c(
+              "button",
+              {
+                staticClass: "btn btn-secondary",
+                on: {
+                  click: function($event) {
+                    return _vm.onClickEdit()
+                  }
+                }
+              },
+              [_vm._v("Edit")]
+            ),
         _vm._v(" "),
         _c(
           "button",

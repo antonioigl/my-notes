@@ -1,6 +1,6 @@
 <template>
     <div class="card">
-        <div class="card-header">Notes: </div>
+        <div class="card-header">Note: </div>
 
         <div class="card-body">
             <form action="" v-on:submit.prevent="newNote()">
