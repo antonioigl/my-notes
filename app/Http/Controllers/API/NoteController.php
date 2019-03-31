@@ -2,11 +2,17 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Note;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class NoteController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +20,7 @@ class NoteController extends Controller
      */
     public function index()
     {
-        //
+       return Note::where('user_id', auth()->id)->get();
     }
 
     /**
@@ -25,7 +31,10 @@ class NoteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Note::create([
+            'description' => $request->description,
+            'user_id' => auth()->id(),
+        ]);
     }
 
 
@@ -38,7 +47,9 @@ class NoteController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        Note::find($id)->update([
+            'description' => $request->description,
+        ]);
     }
 
     /**
@@ -49,6 +60,6 @@ class NoteController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Note::find($id)->delete();
     }
 }
