@@ -19,4 +19,4 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::apiResource('notes', 'NoteController');
+Route::apiResource('notes', 'API\NoteController');
