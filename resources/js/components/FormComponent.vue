@@ -9,7 +9,7 @@
                     <input type="text" class="form-control" name="note" v-model="description">
                 </div>
                 <button type="submit" class="btn btn-primary">
-                    Send note
+                    Save note
                 </button>
             </form>
         </div>
@@ -29,13 +29,16 @@
         },
         methods: {
             newNote(){
-                let note = {
-                    id: 2,
-                    description: this.description,
-                    created_at: '11/22/3333'
+                const params = {
+                    description: this.description
                 };
-                this.$emit('new', note);
                 this.description = '';
+
+                axios.post('/notes', params)
+                    .then((response) => {
+                       const note = response.data;
+                        this.$emit('new', note);
+                    });
             }
         }
     }

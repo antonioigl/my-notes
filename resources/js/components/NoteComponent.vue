@@ -1,6 +1,6 @@
 <template>
     <div class="card" style="margin-top: 10px;">
-        <div class="card-header">Publicado en: {{note.created_at}}</div>
+        <div class="card-header">Create at: {{note.created_at}} - Update at: {{note.updated_at}}</div>
 
         <div class="card-body">
             <input v-if="editMode" type="text" class="form-control" v-model="note.description">
@@ -28,14 +28,22 @@
         },
         methods:{
             onClickDelete(){
-                this.$emit('delete');
+                axios.delete('/notes/' + this.note.id).then(() => {
+                    this.$emit('delete');
+                });
             },
             onClickEdit(){
                 this.editMode = true;
             },
             onClickUpdate(){
-                this.editMode = false;
-                this.$emit('update', note);
+                const params = {
+                    description: this.note.description
+                };
+                axios.put('/notes/' + this.note.id, params).then((response) => {
+                    this.editMode = false;
+                    const note = response.data;
+                    this.$emit('update', note);
+                });
             },
         }
     }

@@ -18,16 +18,14 @@
     export default {
         data(){
             return {
-                notes: [{
-                    'id':1,
-                    'description': 'abc',
-                    'created_at':'17/07/2018'
-                }]
+                notes: []
             }
         },
 
         mounted() {
-            console.log('Component mounted.')
+            axios.get('/notes').then((response) => {
+                this.notes = response.data;
+            });
         },
         methods: {
             addNote(note){

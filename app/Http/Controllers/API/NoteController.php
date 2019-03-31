@@ -20,7 +20,7 @@ class NoteController extends Controller
      */
     public function index()
     {
-       return Note::where('user_id', auth()->id)->get();
+       return Note::where('user_id', auth()->id())->get();
     }
 
     /**
@@ -31,10 +31,13 @@ class NoteController extends Controller
      */
     public function store(Request $request)
     {
-        Note::create([
+
+        $data = Note::create([
             'description' => $request->description,
             'user_id' => auth()->id(),
         ]);
+
+        return Note::find($data->id);
     }
 
 
@@ -47,9 +50,13 @@ class NoteController extends Controller
      */
     public function update(Request $request, $id)
     {
-        Note::find($id)->update([
+        $note = Note::find($id);
+
+        $note->update([
             'description' => $request->description,
         ]);
+
+        return $note;
     }
 
     /**

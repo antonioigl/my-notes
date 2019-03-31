@@ -1793,13 +1793,17 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     newNote: function newNote() {
-      var note = {
-        id: 2,
-        description: this.description,
-        created_at: '11/22/3333'
+      var _this = this;
+
+      var params = {
+        description: this.description
       };
-      this.$emit('new', note);
       this.description = '';
+      axios.post('/notes', params).then(function (response) {
+        var note = response.data;
+
+        _this.$emit('new', note);
+      });
     }
   }
 });
@@ -1834,15 +1838,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      notes: [{
-        'id': 1,
-        'description': 'abc',
-        'created_at': '17/07/2018'
-      }]
+      notes: []
     };
   },
   mounted: function mounted() {
-    console.log('Component mounted.');
+    var _this = this;
+
+    axios.get('/notes').then(function (response) {
+      _this.notes = response.data;
+    });
   },
   methods: {
     addNote: function addNote(note) {
@@ -1897,14 +1901,27 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     onClickDelete: function onClickDelete() {
-      this.$emit('delete');
+      var _this = this;
+
+      axios.delete('/notes/' + this.note.id).then(function () {
+        _this.$emit('delete');
+      });
     },
     onClickEdit: function onClickEdit() {
       this.editMode = true;
     },
     onClickUpdate: function onClickUpdate() {
-      this.editMode = false;
-      this.$emit('update', note);
+      var _this2 = this;
+
+      var params = {
+        description: this.note.description
+      };
+      axios.put('/notes/' + this.note.id, params).then(function (response) {
+        _this2.editMode = false;
+        var note = response.data;
+
+        _this2.$emit('update', note);
+      });
     }
   }
 });
@@ -37000,7 +37017,7 @@ var render = function() {
           _c(
             "button",
             { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-            [_vm._v("\n                Send note\n            ")]
+            [_vm._v("\n                Save note\n            ")]
           )
         ]
       )
@@ -37087,7 +37104,12 @@ var render = function() {
     { staticClass: "card", staticStyle: { "margin-top": "10px" } },
     [
       _c("div", { staticClass: "card-header" }, [
-        _vm._v("Publicado en: " + _vm._s(_vm.note.created_at))
+        _vm._v(
+          "Create at: " +
+            _vm._s(_vm.note.created_at) +
+            " - Update at: " +
+            _vm._s(_vm.note.updated_at)
+        )
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "card-body" }, [
