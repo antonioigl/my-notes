@@ -1,7 +1,7 @@
 <template>
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <form-component> </form-component>
+            <form-component @new="addNote"> </form-component>
             <br>
             <note-component
                 v-for="note in notes"
@@ -26,6 +26,11 @@
 
         mounted() {
             console.log('Component mounted.')
+        },
+        methods: {
+            addNote(note){
+                this.notes.push(note);
+            }
         }
     }
 </script>

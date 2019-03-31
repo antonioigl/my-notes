@@ -1783,8 +1783,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      description: ''
+    };
+  },
   mounted: function mounted() {
     console.log('Component mounted.');
+  },
+  methods: {
+    newNote: function newNote() {
+      var note = {
+        id: 2,
+        description: this.description,
+        created_at: '11/22/3333'
+      };
+      this.$emit('new', note);
+      this.description = '';
+    }
   }
 });
 
@@ -1825,6 +1841,11 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     console.log('Component mounted.');
+  },
+  methods: {
+    addNote: function addNote(note) {
+      this.notes.push(note);
+    }
   }
 });
 
@@ -1857,13 +1878,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['note'],
   data: function data() {
-    return {
-      note: {
-        'id': '',
-        'description': '',
-        'created_at': ''
-      }
-    };
+    return {};
   },
   mounted: function mounted() {
     console.log('Component mounted.');
@@ -36914,26 +36929,47 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card" }, [
-      _c("div", { staticClass: "card-header" }, [_vm._v("Notes: ")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "card-body" }, [
-        _c("form", { attrs: { action: "" } }, [
+  return _c("div", { staticClass: "card" }, [
+    _c("div", { staticClass: "card-header" }, [_vm._v("Notes: ")]),
+    _vm._v(" "),
+    _c("div", { staticClass: "card-body" }, [
+      _c(
+        "form",
+        {
+          attrs: { action: "" },
+          on: {
+            submit: function($event) {
+              $event.preventDefault()
+              return _vm.newNote()
+            }
+          }
+        },
+        [
           _c("div", { staticClass: "form-group" }, [
             _c("label", { attrs: { for: "note" } }, [
               _vm._v("Write your note: ")
             ]),
             _vm._v(" "),
             _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.description,
+                  expression: "description"
+                }
+              ],
               staticClass: "form-control",
-              attrs: { type: "text", name: "note" }
+              attrs: { type: "text", name: "note" },
+              domProps: { value: _vm.description },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.description = $event.target.value
+                }
+              }
             })
           ]),
           _vm._v(" "),
@@ -36942,11 +36978,12 @@ var staticRenderFns = [
             { staticClass: "btn btn-primary", attrs: { type: "submit" } },
             [_vm._v("\n                Send note\n            ")]
           )
-        ])
-      ])
+        ]
+      )
     ])
-  }
-]
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -36973,7 +37010,7 @@ var render = function() {
       "div",
       { staticClass: "col-md-8" },
       [
-        _c("form-component"),
+        _c("form-component", { on: { new: _vm.addNote } }),
         _vm._v(" "),
         _c("br"),
         _vm._v(" "),
@@ -37007,17 +37044,21 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "card" }, [
-    _c("div", { staticClass: "card-header" }, [
-      _vm._v("Publicado en: " + _vm._s(_vm.note.created_at))
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "card-body" }, [
-      _c("p", [_vm._v(_vm._s(_vm.note.description))])
-    ]),
-    _vm._v(" "),
-    _vm._m(0)
-  ])
+  return _c(
+    "div",
+    { staticClass: "card", staticStyle: { "margin-top": "10px" } },
+    [
+      _c("div", { staticClass: "card-header" }, [
+        _vm._v("Publicado en: " + _vm._s(_vm.note.created_at))
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "card-body" }, [
+        _c("p", [_vm._v(_vm._s(_vm.note.description))])
+      ]),
+      _vm._v(" "),
+      _vm._m(0)
+    ]
+  )
 }
 var staticRenderFns = [
   function() {

@@ -1,5 +1,5 @@
 <template>
-    <div class="card">
+    <div class="card" style="margin-top: 10px;">
         <div class="card-header">Publicado en: {{note.created_at}}</div>
 
         <div class="card-body">
@@ -18,11 +18,6 @@
         props:['note'],
         data(){
             return {
-                note: {
-                    'id':'',
-                    'description':'',
-                    'created_at':'',
-                }
             }
         },
         mounted() {
