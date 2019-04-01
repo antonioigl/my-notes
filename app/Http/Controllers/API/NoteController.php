@@ -32,12 +32,12 @@ class NoteController extends Controller
     public function store(Request $request)
     {
 
-        $data = Note::create([
+        $note = Note::create([
             'description' => $request->description,
             'user_id' => auth()->id(),
         ]);
 
-        return Note::find($data->id);
+        return Note::find($note->id);
     }
 
 
@@ -50,13 +50,11 @@ class NoteController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $note = Note::find($id);
-
-        $note->update([
+        Note::find($id)->update([
             'description' => $request->description,
         ]);
 
-        return $note;
+        return Note::find($id);
     }
 
     /**

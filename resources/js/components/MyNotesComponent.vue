@@ -35,7 +35,7 @@
                 this.notes.splice(index, 1);
             },
             updateNote(index, note){
-                this.notes[index] = note;
+                this.notes.splice(index, 1, note);
             },
         }
     }
