@@ -1856,7 +1856,7 @@ __webpack_require__.r(__webpack_exports__);
       this.notes.splice(index, 1);
     },
     updateNote: function updateNote(index, note) {
-      this.notes[index] = note;
+      this.notes.splice(index, 1, note);
     }
   }
 });
@@ -49495,14 +49495,15 @@ __webpack_require__.r(__webpack_exports__);
 /*!******************************************************!*\
   !*** ./resources/js/components/MyNotesComponent.vue ***!
   \******************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _MyNotesComponent_vue_vue_type_template_id_ab807b1a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./MyNotesComponent.vue?vue&type=template&id=ab807b1a& */ "./resources/js/components/MyNotesComponent.vue?vue&type=template&id=ab807b1a&");
 /* harmony import */ var _MyNotesComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./MyNotesComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/MyNotesComponent.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _MyNotesComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _MyNotesComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -49532,7 +49533,7 @@ component.options.__file = "resources/js/components/MyNotesComponent.vue"
 /*!*******************************************************************************!*\
   !*** ./resources/js/components/MyNotesComponent.vue?vue&type=script&lang=js& ***!
   \*******************************************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
